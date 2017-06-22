@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.5.2.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/base/jquery-ui.css">
+<style>
+#slider-first label {
+    position: absolute;
+    width: 20px;
+    margin-left: -10px;
+    text-align: center;
+    margin-top: 20px;
+}
+#slider-first {
+	margin-left: 20px;
+	margin-right: 20px;
+   width: 50%;
+    float :left;
+}
+#slider-second label {
+    position: absolute;
+    width: 20px;
+    margin-left: -10px;
+    text-align: center;
+    margin-top: 20px;
+}
+#slider-second {
+	margin-left: 20px;
+	margin-right: 20px;
+   width: 50%;
+    float :left;
+}
+label
+{
+    float : left;
+}
+</style>
+<script type='text/javascript'>//<![CDATA[
+$(window).load(function(){
+$("#slider-first").slider(
+{
+            value:1,
+            min: 1,
+            max: 20,
+            step: 1,
+            slide: function( event, ui ) {
+				var a=ui.value;
+				var b=$('#slider-second').slider('value');
+                $( "#slider-values" ).html(a+", "+b);
+				if(a==b) {
+					a=1
+					b=1
+				}
+				if(a<=b) {
+					$("#pic").attr('src',a+"_"+b+'.png');
+					$("#pic").attr('style',"width:70%;");
+				}
+				else {
+					$("#pic").attr('src',b+"_"+a+'.png');
+					$("#pic").attr('style',"width:70%;transform: rotateZ(90deg) scaleX(-1);");
+				}
+				
+            }
+}
+);
+$("#slider-second").slider(
+{
+			value:2,
+            min: 1,
+            max: 20,
+            step: 1,
+            slide: function( event, ui ) {
+                var b=ui.value;
+				var a=$('#slider-first').slider('value');
+                $( "#slider-values" ).html(a+", "+b);
+				if(a==b) {
+					a=1
+					b=1
+				}
+				if(a<=b) {
+					$("#pic").attr('src',a+"_"+b+'.png');
+					$("#pic").attr('style',"width:70%;");
+				}
+				else {
+					$("#pic").attr('src',b+"_"+a+'.png');
+					$("#pic").attr('style',"width:70%;transform: rotateZ(90deg) scaleX(-1);");
+				}
+            }
+}
+);
+
+$( "#slider-values" ).html($('#slider-first').slider('value')+","+$('#slider-second').slider('value') );
+
+});//]]> 
+
+</script>
+</head>
+
+<body>
+
+<label>1</label><div id="slider-first" style="width:20%;"></div><label>20</label>
+<br>
+<label>1</label><div id="slider-second" style="width:20%;"></div><label>20</label>
+<br>
+<div id="slider-values" style="font-weight:bold;"></div>
+<img id="pic" src="1_2.png" style="width:70%;">
+<div>Data from the first 500 numbers</div>
+</body>
+</html>
