@@ -37,21 +37,29 @@ label
 }
 </style>
 <script type='text/javascript'>//<![CDATA[
+
+var gcd = function(a, b) {
+    if ( ! b) {
+        return a;
+    }
+
+    return gcd(b, a % b);
+};
+
 $(window).load(function(){
 $("#slider-first").slider(
 {
             value:1,
             min: 1,
-            max: 20,
+            max: 40,
             step: 1,
             slide: function( event, ui ) {
 				var a=ui.value;
 				var b=$('#slider-second').slider('value');
                 $( "#slider-values" ).html(a+", "+b);
-				if(a==b) {
-					a=1
-					b=1
-				}
+				g=gcd(a,b)
+				a=a/g;
+				b=b/g;
 				if(a<=b) {
 					$("#pic").attr('src',a+"_"+b+'.png');
 					$("#pic").attr('style',"width:70%;");
@@ -68,16 +76,15 @@ $("#slider-second").slider(
 {
 			value:2,
             min: 1,
-            max: 20,
+            max: 40,
             step: 1,
             slide: function( event, ui ) {
                 var b=ui.value;
 				var a=$('#slider-first').slider('value');
                 $( "#slider-values" ).html(a+", "+b);
-				if(a==b) {
-					a=1
-					b=1
-				}
+				g=gcd(a,b)
+				a=a/g;
+				b=b/g;
 				if(a<=b) {
 					$("#pic").attr('src',a+"_"+b+'.png');
 					$("#pic").attr('style',"width:70%;");
@@ -99,9 +106,9 @@ $( "#slider-values" ).html($('#slider-first').slider('value')+","+$('#slider-sec
 
 <body>
 
-<label>1</label><div id="slider-first" style="width:20%;"></div><label>20</label>
+<label>1</label><div id="slider-first" style="width:20%;"></div><label>40</label>
 <br>
-<label>1</label><div id="slider-second" style="width:20%;"></div><label>20</label>
+<label>1</label><div id="slider-second" style="width:20%;"></div><label>40</label>
 <br>
 <div id="slider-values" style="font-weight:bold;"></div>
 <img id="pic" src="1_2.png" style="width:70%;">
